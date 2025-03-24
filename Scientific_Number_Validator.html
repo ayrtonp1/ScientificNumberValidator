@@ -1,0 +1,60 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Number Validator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        .menu { background: #ddd; padding: 10px; text-align: left; }
+        .menu button { margin-right: 10px; padding: 5px 10px; cursor: pointer; }
+        input { padding: 10px; margin: 10px; width: 200px; }
+        button { padding: 10px; cursor: pointer; }
+        #message { font-size: 1.2em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <button onclick="fileFunction()">File</button>
+        <button onclick="editFunction()">Edit</button>
+        <button onclick="runFunction()">Run</button>
+    </div>
+    
+    <h2>Scientific Number Validator</h2>
+    <input type="text" id="inputNumber" placeholder="Enter a number">
+    <button onclick="validateNumber()">Check</button>
+    <p id="message" style="color: green;">Yes, it is a number</p>
+
+    <script>
+        function validateNumber() {
+            const input = document.getElementById("inputNumber").value.trim();
+            const sciNumPattern = /^-?\d+(\.\d+)?(e[-+]?\d+)?$/i;
+            
+            if (sciNumPattern.test(input)) {
+                document.getElementById("message").textContent = "Yes, it is a number";
+                document.getElementById("message").style.color = "green";
+            } else {
+                document.getElementById("message").textContent = "No, it is not a number";
+                document.getElementById("message").style.color = "red";
+            }
+        }
+        
+        function fileFunction() {
+            const content = document.documentElement.outerHTML;
+            const blob = new Blob([content], { type: "text/html" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "Scientific_Number_Validator.html";
+            a.click();
+        }
+        
+        function editFunction() {
+            document.getElementById("inputNumber").value = "";
+            document.getElementById("message").textContent = "";
+        }
+        
+        function runFunction() {
+            validateNumber();
+        }
+    </script>
+
+
+</body></html>
